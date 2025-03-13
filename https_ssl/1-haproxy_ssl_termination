@@ -1,0 +1,19 @@
+# Global settings
+defaults
+    mode http
+    timeout client 15s
+    timeout connect 10s
+    timeout server 15s
+    timeout http-request 10s
+
+# Frontend to handle incoming HTTP traffic
+frontend http-in
+    bind *:80
+    default_backend servers
+
+# Backend servers (Load balancing configuration)
+backend servers
+    balance roundrobin
+    server 6541-web-01 44.202.65.76:80 check
+    server 6541-web-02 54.165.2.19:80 check
+
