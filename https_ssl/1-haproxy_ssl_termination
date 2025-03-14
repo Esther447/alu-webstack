@@ -1,4 +1,3 @@
-# Global settings
 defaults
     mode http
     timeout client 15s
@@ -6,14 +5,15 @@ defaults
     timeout server 15s
     timeout http-request 10s
 
-# Frontend to handle incoming HTTP traffic
 frontend http-in
     bind *:80
+    redirect scheme https code 301 if !{ ssl_fc }
+
+frontend https-in
+    bind *:443 ssl crt /etc/haproxy/certs/yourdomain.pem
     default_backend servers
 
-# Backend servers (Load balancing configuration)
 backend servers
     balance roundrobin
-    server 6541-web-01 44.202.65.76:80 check
-    server 6541-web-02 54.165.2.19:80 check
-
+    server 6509-web-01 44.202.65.76:80 check
+    server 6509-web-02 54.165.2.19:80 check
