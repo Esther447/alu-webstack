@@ -15,5 +15,5 @@ frontend https-in
 
 backend servers
     balance roundrobin
-    server 6509-web-01 44.202.65.76:80 check
-    server 6509-web-02 54.165.2.19:80 check
+    server 6509-web-01 44.202.65.76:443 check
+    server 6509-web-02 54.165.2.19:443 check 
